@@ -1,7 +1,9 @@
 Revision history for BERT
 
-0.03    Wed Aug  3 11:56:41 PHT 2011
+0.03    Wed Aug  3 16:19:19 PHT 2011
           - Added CPAN meta data
+          - Updated README
+          - Added pod for BERT::Constants and BERT::Types
 
 0.02    Wed Aug  3 05:32:13 PHT 2011
           - Bumped up version to replace the incorrect tar ball previously uploaded to CPAN.
