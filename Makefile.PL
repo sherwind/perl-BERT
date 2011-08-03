@@ -15,6 +15,13 @@ WriteMakefile(
     PREREQ_PM => {
         'Test::More' => 0,
     },
+    META_MERGE => {
+        resources => {
+            license     => 'http://dev.perl.org/licenses/',
+            bugtracker  => 'https://github.com/sherwind/perl-BERT/issues',
+            repository  => 'https://github.com/sherwind/perl-BERT.git',
+        },
+    },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'BERT-*' },
 );

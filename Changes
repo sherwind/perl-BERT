@@ -1,5 +1,11 @@
 Revision history for BERT
 
+0.03    Wed Aug  3 11:56:41 PHT 2011
+          - Added CPAN meta data
+
+0.02    Wed Aug  3 05:32:13 PHT 2011
+          - Bumped up version to replace the incorrect tar ball previously uploaded to CPAN.
+
 0.01    Wed Aug  3 04:50:27 PHT 2011
-        First version, released on an unsuspecting world.
+          - First version, released on an unsuspecting world.
 

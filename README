@@ -1,35 +1,23 @@
-NAME
-       BERT − BERT serializer/deserializer
+BERT
 
-SYNOPSIS
-         use BERT;
+This is a perl module implementing BERT (Binary ERlang Term) serialization.
 
-         my $bert = encode_bert([ 1, ’foo’, [ 2, [ 3, 4 ] ], 5 ]);
-         my $data = decode_bert($bert);
+See the BERT specification at <http://bert−rpc.org/>.
 
-DESCRIPTION
-       This module provides a thin wrapper around BERT::Encoder and
-       BERT::Decoder, which converts Perl data structures to BERT format and
-       vice versa, respectively.
+INSTALLATION
 
-       See the BERT specification at <http://bert−rpc.org/>.
+To install this module, run the following commands:
 
-FUNCTIONS
-       $bert = encode_bert($data)
-           Returns the BERT representation for the given Perl data structure.
-           Croaks on error.
-
-       $data = decode_bert($bert)
-           Returns the Perl data structure for the given BERT binary. Croaks
-           on error.
+        perl Makefile.PL
+        make
+        make test
+        make install
 
 AUTHOR
-       Sherwin Daganato <sherwin@daganato.com>
+
+Sherwin Daganato <sherwin@daganato.com>
 
 LICENSE
-       This library is free software; you can redistribute it and/or modify it
-       under the same terms as Perl itself.
 
-SEE ALSO
-       BERT::Encoder BERT::Decoder
-
+This library is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
