@@ -2,7 +2,7 @@ BERT
 
 This is a perl module implementing BERT (Binary ERlang Term) serialization.
 
-See the BERT specification at <http://bert−rpc.org/>.
+See the BERT specification at <http://bert-rpc.org/>.
 
 INSTALLATION
 
