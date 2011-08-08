@@ -99,10 +99,10 @@ sub read_small_integer {
 sub read_integer {
     my ($self, $bert) = @_;
 
-    # This should have been unpack('l>a*',...) and not have sprintf('%d,...)
+    # This should have been unpack('l>a*',...) only and not have extra unpack('l',...)
     # but I don't want to require perl >= v5.10
     (my $value, $bert) = unpack('Na*', $bert);
-    $value = sprintf('%d', $value);
+    $value = unpack('l', pack('L', $value));
     return ($value, $bert);
 }
 
