@@ -23,7 +23,7 @@ is_deeply([ unpack 'C*', $bert ], \@bytes, 'integer encode');
     48, 48, 48, 49, 55, 57, 48, 54, 101, 43, 48, 48, 0, 0, 0, 0, 0
 );
 $perl = decode_bert(pack 'C*', @bytes);
-cmp_ok($perl, '==', 8.1516, 'float decode');
+is(sprintf('%.20g', $perl), sprintf('%.20g', 8.1516), 'float decode');
 $bert = encode_bert($perl);
 is_deeply([ unpack 'C*', $bert ], \@bytes, 'float encode');
 
