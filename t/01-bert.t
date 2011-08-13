@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 30;
+use Test::More tests => 37;
 use BERT;
 
 my ($perl, $bert, @bytes);
@@ -32,6 +32,7 @@ is_deeply([ unpack 'C*', $bert ], \@bytes, 'float encode');
     131, 100, 0, 3, 102, 111, 111
 );
 $perl = decode_bert(pack 'C*', @bytes);
+isa_ok($perl, 'BERT::Atom');
 is($perl, BERT::Atom->new('foo'), 'atom decode');
 $bert = encode_bert($perl);
 is_deeply([ unpack 'C*', $bert ], \@bytes, 'atom encode');
@@ -41,6 +42,7 @@ is_deeply([ unpack 'C*', $bert ], \@bytes, 'atom encode');
     131, 104, 3, 100, 0, 5, 99, 111, 111, 114, 100, 97, 23, 97, 42
 );
 $perl = decode_bert(pack 'C*', @bytes);
+isa_ok($perl, 'BERT::Tuple');
 is_deeply($perl, BERT::Tuple->new([BERT::Atom->new('coord'), 23, 42]), 'tuple decode');
 $bert = encode_bert($perl);
 is_deeply([ unpack 'C*', $bert ], \@bytes, 'tuple encode');
@@ -90,6 +92,7 @@ is_deeply([ unpack 'C*', $bert ], \@bytes, 'nil encode');
     131, 104, 2, 100, 0, 4, 98, 101, 114, 116, 100, 0, 4, 116, 114, 117, 101
 );
 $perl = decode_bert(pack 'C*', @bytes);
+isa_ok($perl, 'BERT::Boolean');
 is_deeply($perl, BERT::Boolean->true, 'true decode');
 $bert = encode_bert($perl);
 is_deeply([ unpack 'C*', $bert ], \@bytes, 'true encode');
@@ -98,6 +101,7 @@ is_deeply([ unpack 'C*', $bert ], \@bytes, 'true encode');
     131, 104, 2, 100, 0, 4, 98, 101, 114, 116, 100, 0, 5, 102, 97, 108, 115, 101
 );
 $perl = decode_bert(pack 'C*', @bytes);
+isa_ok($perl, 'BERT::Boolean');
 is_deeply($perl, BERT::Boolean->false, 'false decode');
 $bert = encode_bert($perl);
 is_deeply([ unpack 'C*', $bert ], \@bytes, 'false encode');
@@ -107,6 +111,7 @@ is_deeply([ unpack 'C*', $bert ], \@bytes, 'false encode');
     131, 104, 3, 100, 0, 4, 98, 101, 114, 116, 100, 0, 4, 100, 105, 99, 116, 106
 );
 $perl = decode_bert(pack 'C*', @bytes);
+isa_ok($perl, 'BERT::Dict');
 is_deeply($perl, BERT::Dict->new([]), 'empty dict decode');
 $bert = encode_bert($perl);
 is_deeply([ unpack 'C*', $bert ], \@bytes, 'empty dict encode');
@@ -119,6 +124,7 @@ is_deeply([ unpack 'C*', $bert ], \@bytes, 'empty dict encode');
     84, 111, 109, 104, 2, 100, 0, 3, 97, 103, 101, 97, 30, 106
 );
 $perl = decode_bert(pack 'C*', @bytes);
+isa_ok($perl, 'BERT::Dict');
 is_deeply($perl, BERT::Dict->new([ BERT::Atom->new('name') => 'Tom', BERT::Atom->new('age') => 30 ]), 'dict decode');
 $bert = encode_bert($perl);
 is_deeply([ unpack 'C*', $bert ], \@bytes, 'dict encode');
@@ -129,6 +135,7 @@ is_deeply([ unpack 'C*', $bert ], \@bytes, 'dict encode');
     98, 0, 0, 4, 231, 98, 0, 4, 130, 157, 98, 0, 6, 207, 20
 );
 $perl = decode_bert(pack 'C*', @bytes);
+isa_ok($perl, 'BERT::Time');
 is_deeply($perl, BERT::Time->new(1255 * 1_000_000 + 295581, 446228), 'time decode');
 $bert = encode_bert($perl);
 is_deeply([ unpack 'C*', $bert ], \@bytes, 'time encode');

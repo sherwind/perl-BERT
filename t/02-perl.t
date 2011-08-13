@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 16;
+use Test::More tests => 18;
 use BERT;
 
 # unicode string
@@ -65,6 +65,7 @@ is_deeply([ unpack 'C*', $bert ],
               105, 110, 117, 120, 106
           ], 'hash encode');
 my $decoded = decode_bert($bert);
+isa_ok($decoded, 'BERT::Dict');
 is_deeply($decoded, BERT::Dict->new([ os => 'linux' ]), 'hash decode');
 my %decoded = @{ $decoded->value };
 is_deeply(\%decoded, $perl, 'hash decode');
@@ -72,7 +73,7 @@ is_deeply(\%decoded, $perl, 'hash decode');
 # ordered hash
 SKIP: {
     eval { require Tie::IxHash };
-    skip 'Tie::IxHash not install', 3 if $@;
+    skip 'Tie::IxHash not install', 4 if $@;
 
     tie(my %perl, 'Tie::IxHash',  fname => 'Juan', lname => 'Tamad');
     $perl = \%perl;
@@ -85,6 +86,7 @@ SKIP: {
                   101, 109, 0, 0, 0, 5, 84, 97, 109, 97, 100, 106
               ], 'ordered hash encode');
     my $decoded = decode_bert($bert);
+    isa_ok($decoded, 'BERT::Dict');
     is_deeply($decoded, BERT::Dict->new([ fname => 'Juan', lname => 'Tamad' ]), 'ordered hash decode');
     my %decoded = @{ $decoded->value };
     is_deeply(\%decoded, $perl, 'ordered hash decode');

@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 22;
+use Test::More tests => 31;
 use BERT;
 
 my ($perl, $bert, @bytes);
@@ -13,6 +13,7 @@ my ($perl, $bert, @bytes);
     131, 100, 0, 0
 );
 $perl = decode_bert(pack 'C*', @bytes);
+isa_ok($perl, 'BERT::Atom');
 is($perl, BERT::Atom->new(''), 'empty atom decode');
 $bert = encode_bert($perl);
 is_deeply([ unpack 'C*', $bert ], \@bytes, 'empty atom encode');
@@ -22,6 +23,7 @@ is_deeply([ unpack 'C*', $bert ], \@bytes, 'empty atom encode');
     131, 100, 0, 5, 97, 116, 0, 111, 109
 );
 $perl = decode_bert(pack 'C*', @bytes);
+isa_ok($perl, 'BERT::Atom');
 is($perl, BERT::Atom->new("at\0om"), 'atom decode');
 $bert = encode_bert($perl);
 is_deeply([ unpack 'C*', $bert ], \@bytes, 'atom encode');
@@ -32,6 +34,7 @@ is_deeply([ unpack 'C*', $bert ], \@bytes, 'atom encode');
     195, 150
 );
 $perl = decode_bert(pack 'C*', @bytes);
+isa_ok($perl, 'BERT::Atom');
 is($perl, BERT::Atom->new('åäöÅÄÖ'), 'atom unicode decode');
 $bert = encode_bert($perl);
 is_deeply([ unpack 'C*', $bert ], \@bytes, 'atom unicode encode');
@@ -88,12 +91,28 @@ is($perl, -134217729, 'small big decode');
 $bert = encode_bert($perl);
 is_deeply([ unpack 'C*', $bert ], \@bytes, 'small big encode');
 
+@bytes = (
+    131, 98, 7, 255, 255, 255
+);
+$perl = decode_bert(pack 'C*', @bytes);
+is($perl, 134217727, 'integer decode');
+$bert = encode_bert($perl);
+is_deeply([ unpack 'C*', $bert ], \@bytes, 'integer encode');
+
+@bytes = (
+    131, 110, 4, 0, 0, 0, 0, 8
+);
+$perl = decode_bert(pack 'C*', @bytes);
+is($perl, 134217728, 'small big decode');
+$bert = encode_bert($perl);
+is_deeply([ unpack 'C*', $bert ], \@bytes, 'small big encode');
+
 # small big
 @bytes = (
     131, 110, 8, 0, 210, 10, 31, 235, 140, 169, 84, 171
 );
 $perl = decode_bert(pack 'C*', @bytes);
-require Math::BigInt;
+isa_ok($perl, 'Math::BigInt');
 is($perl, Math::BigInt->new('12345678901234567890'), 'small big decode');
 $bert = encode_bert($perl);
 is_deeply([ unpack 'C*', $bert ], \@bytes, 'small big encode');
@@ -120,7 +139,7 @@ is_deeply([ unpack 'C*', $bert ], \@bytes, 'small big encode');
     153, 108, 157, 4, 126, 1
 );
 $perl = decode_bert(pack 'C*', @bytes);
-require Math::BigInt;
+isa_ok($perl, 'Math::BigInt');
 my $expected = new Math::BigInt '12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890';
 is($perl, $expected, 'large big decode');
 $bert = encode_bert($perl);

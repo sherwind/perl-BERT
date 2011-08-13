@@ -3,7 +3,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 15;
+use Test::More tests => 14;
 use BERT;
 
 # atom
@@ -31,8 +31,7 @@ is($false->value, 0);
 
 # time
 my $time = BERT::Time->new(255295581, 446228);
-cmp_ok($time, 'eq', '255295581.446228');
-cmp_ok($time, '==', 255295581.446228);
+is($time, '255295581.446228');
 is_deeply([$time->value], [255295581, 446228]);
     
 # dict
