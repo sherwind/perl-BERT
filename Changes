@@ -1,5 +1,9 @@
 Revision history for BERT
 
+0.05    Sat Aug 13 12:20:55 PHT 2011
+         - Added more tests
+         - Fixed float comparison in t/01-bert.t
+
 0.04    Mon Aug  8 10:33:11 PHT 2011
           - Fixed 64-bit decoding of int
 

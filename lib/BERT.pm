@@ -5,7 +5,7 @@ use warnings;
 use base 'Exporter';
 our @EXPORT = qw(encode_bert decode_bert);
 
-our $VERSION = 0.04;
+our $VERSION = 0.05;
 
 use BERT::Decoder;
 use BERT::Encoder;
