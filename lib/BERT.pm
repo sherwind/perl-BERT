@@ -2,10 +2,12 @@ package BERT;
 use strict;
 use warnings;
 
+use 5.008;
+
 use base 'Exporter';
 our @EXPORT = qw(encode_bert decode_bert);
 
-our $VERSION = 0.05;
+our $VERSION = 0.06;
 
 use BERT::Decoder;
 use BERT::Encoder;

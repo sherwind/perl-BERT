@@ -2,6 +2,8 @@ package BERT::Decoder;
 use strict;
 use warnings;
 
+use 5.008;
+
 use Carp 'croak';
 use BERT::Constants;
 use BERT::Types;

@@ -1,5 +1,8 @@
 package BERT::Constants;
 use strict;
+use warnings;
+
+use 5.008;
 
 use base 'Exporter';
 

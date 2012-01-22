@@ -1,4 +1,4 @@
-use 5.006;
+use 5.008;
 use strict;
 use warnings;
 use ExtUtils::MakeMaker;
@@ -15,6 +15,7 @@ WriteMakefile(
     PREREQ_PM => {
         'Test::More' => 0,
     },
+    MIN_PERL_VERSION => '5.008',
     META_MERGE => {
         resources => {
             license     => 'http://dev.perl.org/licenses/',
